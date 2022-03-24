@@ -8,7 +8,13 @@
 
 import UIKit
 
-public class MarkView: UIView {
+public class MarkView: UIView, Copying {
+    required init(_ prototype: MarkView) {
+        super.init(frame: prototype.frame)
+        self.lineColor = prototype.lineColor
+        self.lineWidth = prototype.lineWidth
+        self.textColor = prototype.textColor
+    }
     
     // MARK: - Properties
     
@@ -34,20 +40,26 @@ public class MarkView: UIView {
     }()
     
     internal private(set) lazy var label: UILabel = {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: bounds.width, height: 0.1 * bounds.height))
+        let label = UILabel(frame: CGRect(x: 0, y: 0,
+                                          width: bounds.width,
+                                          height: 0.1 * bounds.height))
         label.textColor = textColor
         label.textAlignment = .right
         addSubview(label)
         
         label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint(item: label, attribute: .top, relatedBy: .equal,
-                           toItem: self, attribute: .top, multiplier: 1, constant: 4).isActive = true
+                           toItem: self, attribute: .top, multiplier: 1,
+                           constant: 4).isActive = true
         NSLayoutConstraint(item: label, attribute: .height, relatedBy: .equal,
-                           toItem: self, attribute: .height, multiplier: 0.1, constant: 0).isActive = true
+                           toItem: self, attribute: .height, multiplier: 0.1,
+                           constant: 0).isActive = true
         NSLayoutConstraint(item: label, attribute: .leading, relatedBy: .equal,
-                           toItem: self, attribute: .leading, multiplier: 1, constant: 0).isActive = true
+                           toItem: self, attribute: .leading, multiplier: 1,
+                           constant: 0).isActive = true
         NSLayoutConstraint(item: self, attribute: .trailing, relatedBy: .equal,
-                           toItem: label, attribute: .trailing, multiplier: 1, constant: 4).isActive = true
+                           toItem: label, attribute: .trailing, multiplier: 1,
+                           constant: 4).isActive = true
         
         return label
     }()
@@ -65,19 +77,20 @@ public class MarkView: UIView {
     
     // MARK: - UIView
     
-    public final override func layoutSubviews() {
+    override public final func layoutSubviews() {
         super.layoutSubviews()
         updateLabel()
         updateShapeLayer()
     }
     
-    public override var frame: CGRect {
+    override public var frame: CGRect {
         didSet {
             setNeedsLayout()
             layoutIfNeeded()
         }
     }
-    public override var bounds: CGRect {
+
+    override public var bounds: CGRect {
         didSet {
             setNeedsLayout()
             layoutIfNeeded()
@@ -87,7 +100,8 @@ public class MarkView: UIView {
     // MARK: - Methods
     
     public func animateIn(duration: TimeInterval = 0.5,
-                          completion: @escaping () -> Void) {
+                          completion: @escaping () -> Void)
+    {
         CATransaction.begin()
         CATransaction.setCompletionBlock(completion)
         let animation = CABasicAnimation(keyPath: "strokeEnd")
@@ -99,8 +113,8 @@ public class MarkView: UIView {
     }
     
     public func animateOut(duration: TimeInterval = 0.5,
-                           completion: @escaping () -> Void) {
-        
+                           completion: @escaping () -> Void)
+    {
         CATransaction.begin()
         CATransaction.setCompletionBlock(completion)
         let animation = CABasicAnimation(keyPath: "opacity")
