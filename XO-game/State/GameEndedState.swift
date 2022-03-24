@@ -7,7 +7,8 @@
 //
 
 import UIKit
-public class GameEndedState: GameState { public let isCompleted = false
+public class GameEndedState: GameState {
+    public var isCompleted = false
     public let winner: Player?
     private(set) weak var gameViewController: GameViewController?
 
@@ -27,7 +28,8 @@ public class GameEndedState: GameState { public let isCompleted = false
         self.gameViewController?.secondPlayerTurnLabel.isHidden = true
     }
 
-    public func addMark(at position: GameboardPosition) {}
+    public func addMark(at position: GameboardPosition?) {}
+
     private func winnerName(from winner: Player) -> String {
         switch winner {
         case .first: return "1st player"

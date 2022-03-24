@@ -1,14 +1,14 @@
 //
-//  PlayerInputState.swift
+//  ComputerInputState.swift
 //  XO-game
 //
-//  Created by Алексей Шинкарев on 21.03.2022.
+//  Created by Алексей Шинкарев on 24.03.2022.
 //  Copyright © 2022 plasmon. All rights reserved.
 //
 
 import UIKit
 
-public class PlayerInputState: InputState {
+public class ComputerInputState: InputState {
     public let markViewPrototype: MarkView
     public var isCompleted = false
     public let player: Player
@@ -37,13 +37,33 @@ public class PlayerInputState: InputState {
     }
 
     public func addMark(at position: GameboardPosition?) {
-        guard let position = position else { return }
+        guard let position = self.calcPosition() else {
+            return
+        }
         guard let gameboardView = self.gameboardView,
               gameboardView.canPlaceMarkView(at: position) else { return }
-
         self.gameboard?.setPlayer(self.player, at: position)
         self.gameboardView?.placeMarkView(self.markViewPrototype.copy(),
                                           at: position)
         self.isCompleted = true
+    }
+
+    private func calcPosition() -> GameboardPosition? {
+        if let emptyPositions = gameboard?.getPositions()
+            .map({ $0.enumerated()
+                    .filter { $0.element == nil }
+                    .map { $0.offset }
+            }),
+            let column = emptyPositions
+            .enumerated()
+            .filter({ !$0.element.isEmpty })
+            .map({ $0.offset })
+            .randomElement(),
+            let row = emptyPositions[column].randomElement()
+        {
+            return GameboardPosition(column: column, row: row)
+        }
+
+        return nil
     }
 }
