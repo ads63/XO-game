@@ -34,12 +34,12 @@ class GameViewController: UIViewController {
     }
 
     private func setHumanHumanStates() {
-        inputStates[Player.first] = PlayerInputState(player: .first,
+        inputStates[Player.first] = PlayerInputState(player: Player.first,
                                                      markViewPrototype: Player.first.markViewPrototype,
                                                      gameViewController: self,
                                                      gameboard: gameboard,
                                                      gameboardView: gameboardView)
-        inputStates[Player.second] = PlayerInputState(player: .second,
+        inputStates[Player.second] = PlayerInputState(player: Player.second,
                                                       markViewPrototype: Player.second.markViewPrototype,
                                                       gameViewController: self,
                                                       gameboard: gameboard,
@@ -47,12 +47,12 @@ class GameViewController: UIViewController {
     }
 
     private func setHumanComputerStates() {
-        inputStates[Player.first] = PlayerInputState(player: .first,
+        inputStates[Player.first] = PlayerInputState(player: Player.first,
                                                      markViewPrototype: Player.first.markViewPrototype,
                                                      gameViewController: self,
                                                      gameboard: gameboard,
                                                      gameboardView: gameboardView)
-        inputStates[Player.second] = ComputerInputState(player: .second,
+        inputStates[Player.second] = ComputerInputState(player: Player.second,
                                                         markViewPrototype: Player.second.markViewPrototype,
                                                         gameViewController: self,
                                                         gameboard: gameboard,
