@@ -9,7 +9,6 @@
 import Foundation
 
 public final class Gameboard {
-    
     // MARK: - Properties
     
     private lazy var positions: [[Player?]] = initialPositions()
@@ -21,7 +20,11 @@ public final class Gameboard {
     }
     
     public func clear() {
-        self.positions = initialPositions()
+        positions = initialPositions()
+    }
+    
+    public func getPositions() -> [[Player?]] {
+        return positions
     }
     
     public func contains(player: Player, at positions: [GameboardPosition]) -> Bool {
@@ -43,7 +46,7 @@ public final class Gameboard {
     private func initialPositions() -> [[Player?]] {
         var positions: [[Player?]] = []
         for _ in 0 ..< GameboardSize.columns {
-            let rows = Array<Player?>(repeating: nil, count: GameboardSize.rows)
+            let rows = [Player?](repeating: nil, count: GameboardSize.rows)
             positions.append(rows)
         }
         return positions
