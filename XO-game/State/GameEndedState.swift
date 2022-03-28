@@ -12,7 +12,7 @@ public class GameEndedState: GameState {
     public let winner: Player?
     private(set) weak var gameViewController: GameViewController?
 
-    init(winner: Player?, gameViewController: GameViewController) {
+    init(winner: Player?, gameViewController: GameViewController?) {
         self.winner = winner
         self.gameViewController = gameViewController
     }

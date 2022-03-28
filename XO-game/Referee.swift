@@ -32,12 +32,13 @@ public final class Referee {
     // MARK: - Public
     
     public func determineWinner() -> Player? {
+        var winners: [Player] = []
         for player in Player.allCases {
             if doesPlayerHaveWinningCombination(player) {
-                return player
+                winners.append(player)
             }
         }
-        return nil
+        return winners.count == 1 ? winners.first : nil
     }
     
     // MARK: - Private
